@@ -6,8 +6,11 @@ import os
 import sys
 
 # Read the contents of README.md for long description
-with open(os.path.join(os.path.dirname(__file__), 'README.md'), 'r', encoding='utf-8') as f:
-    long_description = f.read()
+try:
+    with open(os.path.join(os.path.dirname(__file__), 'README.md'), 'r', encoding='utf-8') as f:
+        long_description = f.read()
+except FileNotFoundError:
+    long_description = "Text Humanizer - A package to make text more human-readable"
 
 # Define package requirements
 requirements = [
@@ -29,7 +32,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Tay Wilson",
     python_requires=">=3.7",
-    url="https://github.com/yourusername/humanizer",  # Replace with your actual repo URL
+    url="https://github.com/FingerlessCoder/humanizer",
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",

@@ -1,9 +1,10 @@
 """
-Command-line interface for the humanizer package.
+Command-line interface for the Humanizer package.
 """
 import argparse
 import sys
 from humanizer import TextHumanizer
+from humanizer.utils.resources import ensure_nltk_resources
 
 def main():
     parser = argparse.ArgumentParser(description="Humanize text to make it more readable and natural.")
@@ -15,8 +16,28 @@ def main():
     parser.add_argument("--threshold", type=int, default=8, help="Word length threshold for simplification")
     parser.add_argument("--style", help="Path to a trained style model (.pkl file)")
     parser.add_argument("--strength", type=float, default=0.7, help="Style strength (0.0-1.0)")
+    parser.add_argument("--web", action="store_true", help="Launch the web interface (Streamlit app)")
     
     args = parser.parse_args()
+    
+    # Launch web interface if requested
+    if args.web:
+        try:
+            import streamlit
+            import os
+            import subprocess
+            app_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "app.py")
+            subprocess.run([sys.executable, "-m", "streamlit", "run", app_path])
+            return
+        except ImportError:
+            print("Streamlit is not installed. Install it with: pip install streamlit")
+            sys.exit(1)
+        except Exception as e:
+            print(f"Error launching web interface: {e}")
+            sys.exit(1)
+    
+    # Make sure NLTK resources are available
+    ensure_nltk_resources()
     
     # Initialize humanizer
     humanizer = TextHumanizer()
@@ -43,6 +64,8 @@ def main():
     else:
         # Read from stdin if no input argument or file
         try:
+            print("Reading from stdin... (Press Ctrl+Z on Windows or Ctrl+D on Unix and Enter to finish)", 
+                  file=sys.stderr)
             input_text = sys.stdin.read()
         except KeyboardInterrupt:
             sys.exit(0)
@@ -62,6 +85,7 @@ def main():
         if args.output:
             with open(args.output, 'w', encoding='utf-8') as f:
                 f.write(humanized_text)
+            print(f"Humanized text written to {args.output}", file=sys.stderr)
         else:
             print(humanized_text)
             
