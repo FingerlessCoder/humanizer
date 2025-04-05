@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: humanizer
+Version: 0.1.0
+Summary: A package to make text more human-readable
+Author: Humanizer Team
+Requires-Python: >=3.7
+Requires-Dist: spacy>=3.5.0
+Requires-Dist: language-tool-python>=2.7.1
+Requires-Dist: nltk>=3.8.1
+Requires-Dist: scikit-learn>=1.0.2
+Requires-Dist: numpy>=1.21.0
+Requires-Dist: streamlit>=1.22.0
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

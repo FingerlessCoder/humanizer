@@ -1,0 +1,16 @@
+README.md
+setup.py
+humanizer/__init__.py
+humanizer.egg-info/PKG-INFO
+humanizer.egg-info/SOURCES.txt
+humanizer.egg-info/dependency_links.txt
+humanizer.egg-info/requires.txt
+humanizer.egg-info/top_level.txt
+humanizer/core/__init__.py
+humanizer/core/grammar.py
+humanizer/core/humanizer.py
+humanizer/core/simplifier.py
+humanizer/ml/__init__.py
+humanizer/ml/style_trainer.py
+humanizer/utils/__init__.py
+humanizer/utils/resources.py

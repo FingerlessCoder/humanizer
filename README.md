@@ -1,0 +1,90 @@
+# Text Humanizer
+
+A Python package for making text more human-readable by simplifying vocabulary and correcting grammar.
+
+## Features
+
+- **Grammar Correction**: Fixes grammatical errors in text
+- **Vocabulary Simplification**: Replaces complex words with simpler synonyms
+- **Style Learning**: Train on sample texts to match your preferred writing style
+- **Web App Interface**: Easy-to-use web application
+- **API for Integration**: Simple interface for programmatic text transformation
+
+## Installation
+
+```bash
+# Install requirements
+pip install -r requirements.txt
+python -m spacy download en_core_web_sm
+
+# Optional: Install as a package for development
+# pip install -e .
+```
+
+## Using the Web App
+
+The easiest way to use Text Humanizer is through the web app:
+
+```bash
+# Navigate to the humanizer directory
+cd c:\Users\Admin\Desktop\humanizer
+
+# Start the web app
+streamlit run app.py
+```
+
+This will open a browser window with the Text Humanizer interface where you can:
+1. **Humanize Text**: Paste your text and adjust settings to make it more readable
+2. **Train Style Model**: Provide sample texts to train the system to match your preferred style
+
+## API Usage
+
+```python
+from humanizer import TextHumanizer
+
+# Initialize the humanizer
+humanizer = TextHumanizer()
+
+# Train on your writing style (optional)
+sample_texts = [
+    "This is an example of my writing style.",
+    "I prefer to use simple words and direct sentences.",
+    "My ideas are clearly expressed with straightforward language."
+]
+humanizer.train_on_texts(sample_texts)
+
+# Save the trained style for later use
+humanizer.save_style_model("my_style.pkl")
+
+# Load a previously saved style
+humanizer = TextHumanizer(style_model="my_style.pkl")
+
+# Humanize some text
+original = "The utilization of protracted vocabulary impedes comprehension."
+humanized = humanizer.humanize(original)
+
+print(f"Original: {original}")
+print(f"Humanized: {humanized}")
+```
+
+## Advanced Configuration
+
+You can customize the humanization process:
+
+```python
+# Initialize with custom language
+humanizer = TextHumanizer(language='en-US')
+
+# Customize humanization options
+humanized = humanizer.humanize(
+    text="The implementation of revolutionary methodologies necessitates innovative strategic planning.",
+    simplify=True,           # Simplify vocabulary
+    correct=True,            # Correct grammar
+    word_length_threshold=6, # Words longer than this will be simplified
+    apply_style=True         # Apply trained style
+)
+```
+
+## License
+
+MIT
